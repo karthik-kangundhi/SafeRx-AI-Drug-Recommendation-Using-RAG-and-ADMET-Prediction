@@ -1,0 +1,4 @@
+SafeRx AI Final V7
+Built from the OCR/RAG/explainability project branch and aligned with the supplied SafeRx specification.
+Patient PDF/JPG/JPEG/PNG extraction is integrated into Drug Recommendation.
+The UI exposes exactly two report types: Patient + Drug Recommendation Report and Molecule / ADMET Report.

@@ -1,0 +1,2276 @@
+You are an expert full-stack AI/ML engineer, computational drug-discovery researcher, biomedical software architect, UI/UX designer, and QA engineer.
+
+Build a complete, professional, college-project and resume-ready application called:
+
+SAFE RX AI
+AI-Powered ADMET Analysis, Drug Safety Assessment, Evidence Retrieval, and Personalized Drug Ranking System
+
+IMPORTANT:
+Do NOT simplify this project into a basic demo.
+Do NOT replace React with Streamlit.
+Do NOT remove features to make implementation easier.
+Do NOT create fake buttons that do nothing.
+Do NOT create disconnected frontend pages.
+Do NOT use placeholder logic where real project logic can be implemented.
+Every frontend feature must be connected to the backend/API.
+Every backend result must be represented correctly in the frontend.
+The application must work as one connected end-to-end system.
+
+============================================================
+1. PROJECT PURPOSE
+============================================================
+
+SafeRx AI is an educational/research-oriented AI system that analyzes drugs and molecules using molecular descriptors, ADMET prediction, toxicity/risk assessment, biomedical evidence retrieval, and patient-specific ranking.
+
+The main workflow should communicate this concept:
+
+ENTER A DRUG
+        ↓
+MOLECULAR STRUCTURE ANALYSIS
+        ↓
+MOLECULAR DESCRIPTORS
+        ↓
+ADMET PREDICTION
+        ↓
+TOXICITY / SAFETY RISK ASSESSMENT
+        ↓
+BIOMEDICAL EVIDENCE RETRIEVAL
+        ↓
+PATIENT-SPECIFIC SAFETY CHECK
+        ↓
+PERSONALIZED DRUG RANKING
+        ↓
+EXPLAINABLE RECOMMENDATION
+        ↓
+PDF REPORT
+
+The project must clearly communicate:
+
+“Enter a drug → SafeRx analyzes molecular properties → predicts ADMET endpoints → evaluates safety risks → retrieves supporting evidence → produces an explainable safety assessment.”
+
+This is a research/educational decision-support prototype.
+It must NOT claim to provide medical diagnosis or a clinical prescription.
+
+============================================================
+2. CORE TECHNOLOGY STACK
+============================================================
+
+FRONTEND:
+- React
+- Vite
+- Tailwind CSS
+- Framer Motion
+- Lucide React icons
+- Recharts
+- Responsive design
+- Dark/light theme
+
+BACKEND:
+- Python
+- FastAPI
+- Uvicorn
+- Pydantic
+
+CHEMOINFORMATICS:
+- RDKit
+- SMILES parsing
+- Molecular descriptors
+- Molecular structure rendering
+
+ADMET:
+- ADMET-AI
+- ADMETModel
+- Pretrained inference
+- Do NOT falsely claim that ADMET-AI was trained by this project
+
+RAG / EVIDENCE:
+- PubChem
+- PubMed
+- openFDA where applicable
+- BioLinkBERT embeddings where available
+- FAISS retrieval where available
+- TF-IDF/local fallback retriever if transformer/FAISS components fail
+
+DOCUMENT PROCESSING:
+- PDF upload
+- JPG/PNG upload
+- OCR
+- Medical information extraction
+- Patient data normalization
+- Confidence-aware extraction
+- User confirmation/editing
+
+REPORTS:
+- PDF generation
+- Patient Report
+- Molecule / ADMET Report
+- Drug Recommendation Report
+
+TESTING:
+- pytest
+- API contract tests
+- backend unit tests
+- frontend/backend integration checks
+- invalid-input tests
+
+============================================================
+3. PROFESSIONAL PROJECT STRUCTURE
+============================================================
+
+Use this structure:
+
+SafeRx_AI/
+│
+├── frontend/
+│   ├── package.json
+│   ├── vite.config.js
+│   ├── index.html
+│   └── src/
+│       ├── main.jsx
+│       ├── App.jsx
+│       ├── index.css
+│       ├── components/
+│       ├── pages/
+│       ├── services/
+│       ├── hooks/
+│       ├── utils/
+│       └── assets/
+│
+├── backend/
+│   ├── api.py
+│   ├── saferx_complete.py
+│   ├── requirements.txt
+│   ├── data/
+│   ├── runtime/
+│   └── generated_reports/
+│
+├── models/
+│
+├── data/
+│   └── synthetic_medical_reports_1000 (1).csv
+│
+├── rag/
+│
+├── tests/
+│   ├── test_core.py
+│   ├── test_api_contract.py
+│   └── ...
+│
+├── utils/
+│
+├── README.md
+├── .gitignore
+├── Dockerfile
+├── docker-compose.yml
+└── run_all.bat
+
+The architecture must remain modular and GitHub-ready.
+
+============================================================
+4. MAIN FRONTEND NAVIGATION
+============================================================
+
+Create a professional navigation/sidebar containing:
+
+1. Dashboard
+2. Molecule Analysis
+3. Drug Recommendation
+4. RAG Evidence
+5. Explainability
+6. Evaluation
+7. Report Center
+
+DO NOT create a separate Patient Report navigation page.
+
+Patient report upload/OCR must be integrated directly into:
+
+DRUG RECOMMENDATION
+
+The Drug Recommendation page is the MAIN WORKFLOW.
+
+============================================================
+5. VISUAL DESIGN
+============================================================
+
+The interface must look like a professional biomedical AI research platform.
+
+Design language:
+- Dark navy background
+- Indigo accents
+- Cyan/teal medical accents
+- Glass-like cards
+- Clean borders
+- Professional typography
+- Subtle gradients
+- Modern dashboard layout
+- Medical/research aesthetic
+- Good spacing
+- Clear information hierarchy
+
+Do NOT make it look like:
+- a basic college HTML project
+- a Streamlit application
+- a generic admin dashboard
+- a gaming interface
+
+Use:
+- Framer Motion animations
+- Lucide icons
+- smooth transitions
+- hover states
+- loading states
+- skeleton states where appropriate
+- cards
+- charts
+- badges
+- tables
+- expandable information where useful
+
+The application must be fully responsive.
+
+============================================================
+6. DARK/LIGHT THEME
+============================================================
+
+Implement a real theme switch.
+
+Requirements:
+- Dark mode
+- Light mode
+- Toggle must actually change the entire UI
+- Theme preference must persist after refresh
+- Use localStorage or equivalent persistence
+- Text and cards must remain readable in both themes
+- Charts/tables must adapt correctly
+- No unreadable dark text on dark backgrounds
+
+============================================================
+7. DASHBOARD
+============================================================
+
+Dashboard should provide an overview of SafeRx AI.
+
+Include:
+
+- Project title
+- Short project explanation
+- System workflow
+- Quick drug analysis
+- Quick recommendation access
+- ADMET overview
+- safety/risk overview
+- evidence overview
+- recent analysis/recommendation state where appropriate
+- system status
+
+Show the pipeline visually:
+
+Drug / Patient Input
+→ Molecular Analysis
+→ ADMET
+→ Toxicity
+→ Evidence
+→ Personalized Ranking
+→ Explanation
+→ Report
+
+Use professional cards and visual indicators.
+
+============================================================
+8. DRUG INPUT
+============================================================
+
+Drug input must NOT be limited to only the original 10-drug dataset.
+
+Support open-ended drug/molecule resolution wherever possible.
+
+A user should be able to enter:
+
+- Drug name
+- Molecule name
+- SMILES
+
+Examples can include:
+
+Atorvastatin
+Amoxicillin
+Levothyroxine
+Omeprazole
+Amlodipine
+Lisinopril
+Sertraline
+Cetirizine
+Metformin
+Losartan
+
+These are examples from the synthetic project dataset, NOT the only supported drugs.
+
+If a drug is not in the local catalog:
+1. Attempt PubChem resolution
+2. Obtain canonical SMILES where available
+3. Resolve molecule information
+4. Run RDKit processing
+5. Run ADMET prediction
+6. Run safety/risk analysis
+7. Retrieve evidence
+8. Continue the workflow
+
+Unknown drugs must produce a clear error/message instead of crashing the backend.
+
+============================================================
+9. MOLECULAR STRUCTURE
+============================================================
+
+Every relevant drug result must display a molecular structure.
+
+Requirements:
+- Structure must be LARGE and clearly visible
+- Do NOT render a tiny molecule image
+- Use RDKit to parse SMILES
+- Generate SVG or another reliable structure representation
+- Display molecular structure prominently
+- Support structure display in:
+  - Molecule Analysis
+  - Drug Recommendation detail
+  - Report Center PDFs where applicable
+
+If SMILES is invalid:
+- do not crash
+- return a useful validation error
+- explain that the structure could not be parsed
+
+============================================================
+10. MOLECULE ANALYSIS PAGE
+============================================================
+
+The Molecule Analysis page must contain:
+
+A. Input
+- Drug name / molecule name
+- SMILES input
+- Analyze button
+
+B. Molecular Structure
+- large structure rendering
+
+C. Basic Drug Information
+- name
+- canonical SMILES
+- molecular formula where available
+- molecular weight
+- known/common use where available
+
+D. Molecular Descriptors
+Include useful RDKit descriptors such as:
+- molecular weight
+- LogP
+- TPSA
+- H-bond donors
+- H-bond acceptors
+- rotatable bonds
+- ring count
+- aromatic ring count
+- heavy atom count
+- fraction Csp3 where available
+- Lipinski-related properties
+
+E. Drug-likeness
+Show:
+- Lipinski checks
+- Rule-of-Five interpretation
+- descriptor interpretation
+
+F. ADMET
+Display professional ADMET results.
+
+G. Toxicity
+Display toxicity-related predictions.
+
+H. Evidence
+Show relevant retrieved biomedical evidence.
+
+I. Research/Lab-style information
+Provide technical molecular and model information where useful.
+
+IMPORTANT:
+Do not label computational predictions as laboratory measurements.
+
+============================================================
+11. ADMET ENGINE
+============================================================
+
+Use ADMET-AI's pretrained ADMETModel for inference.
+
+Do NOT state that the project trained ADMET-AI.
+
+The backend should:
+1. receive molecule/drug
+2. resolve SMILES
+3. validate SMILES
+4. convert to required representation
+5. run ADMET-AI
+6. normalize output
+7. classify risk/readability
+8. provide interpretation
+9. send structured results to frontend
+
+The API must survive ADMET errors.
+
+If ADMET-AI is unavailable:
+- return a controlled error or safe fallback
+- do not silently invent values
+
+============================================================
+12. PROFESSIONAL ADMET TABLE
+============================================================
+
+Create a professional table with EXACTLY these conceptual columns:
+
+Endpoint
+Prediction
+Risk
+Interpretation
+
+Every value must be clearly identifiable as a model prediction.
+
+Add a visible note:
+
+“ADMET values shown here are computational model predictions and are not laboratory measurements or clinical test results.”
+
+Do not imply:
+- blood test result
+- laboratory test
+- confirmed toxicity
+- confirmed clinical diagnosis
+
+Use appropriate risk interpretation.
+
+============================================================
+13. ADMET ENDPOINT GROUPS
+============================================================
+
+Include relevant endpoint groups from the model, including:
+
+MAJOR SAFETY:
+- DILI
+- hERG
+- ClinTox
+- Skin_Reaction
+- Carcinogens_Lagunin
+
+GENOTOXICITY:
+- AMES
+- SR-ATAD5
+- SR-p53
+
+Also support:
+- receptor-related endpoints
+- cellular stress endpoints
+- pharmacokinetic/ADME endpoints available from ADMET-AI
+
+Do not fabricate endpoints that the model does not actually return.
+
+============================================================
+14. TOXICITY SCORING
+============================================================
+
+Use the established project risk logic.
+
+Major safety columns:
+
+MAJOR_SAFETY_COLS =
+[
+"DILI",
+"hERG",
+"ClinTox",
+"Skin_Reaction",
+"Carcinogens_Lagunin"
+]
+
+Genotoxicity:
+
+GENOTOXICITY_COLS =
+[
+"AMES",
+"SR-ATAD5",
+"SR-p53"
+]
+
+Also support receptor and cellular-stress groups.
+
+Overall risk should use the established weighted logic:
+
+Major safety = 0.40
+Genotoxicity = 0.25
+Receptor/cellular stress = 0.20
+Other relevant risk = 0.15
+
+Normalize to a 0–100 risk representation where appropriate.
+
+Frontend normalized scores may use:
+
+0–1
+
+Toxicity Score:
+higher = greater toxicity concern
+
+Bioavailability Score:
+higher = stronger predicted bioavailability signal
+
+Safety Score:
+higher = more favorable safety profile
+
+Important:
+Risk bands are readability indicators only.
+They are NOT clinical thresholds.
+
+============================================================
+15. DRUG-LIKENESS
+============================================================
+
+Implement Lipinski-style drug-likeness checks.
+
+Calculate where supported:
+- MW
+- LogP
+- HBD
+- HBA
+- TPSA
+- rotatable bonds
+
+Return:
+- pass/fail counts
+- interpretation
+- concise plain-English explanation
+
+Do not claim that passing Lipinski rules means a drug is clinically safe.
+
+============================================================
+16. DRUG RECOMMENDATION = MAIN WORKFLOW
+============================================================
+
+This is the most important page.
+
+The user should be able to upload a patient report directly here.
+
+Workflow:
+
+UPLOAD PATIENT REPORT
+↓
+OCR / TEXT EXTRACTION
+↓
+PATIENT INFORMATION EXTRACTION
+↓
+USER REVIEW / EDIT
+↓
+DISEASE + SYMPTOM UNDERSTANDING
+↓
+CANDIDATE DRUG GENERATION
+↓
+DRUG/MOLECULE RESOLUTION
+↓
+ADMET ANALYSIS
+↓
+TOXICITY ANALYSIS
+↓
+INTERACTION/PATIENT RISK CHECK
+↓
+RAG EVIDENCE
+↓
+PERSONALIZED RANKING
+↓
+EXPLAINABLE RECOMMENDATION
+
+============================================================
+17. PATIENT REPORT UPLOAD
+============================================================
+
+Support:
+
+- PDF
+- JPG
+- JPEG
+- PNG
+
+The system should extract:
+
+- patient name if available
+- age
+- sex/gender
+- diagnosis
+- symptoms
+- allergies
+- comorbidities
+- current medications
+- previous medications
+- lab tests
+- lab values
+- kidney function where available
+- liver function where available
+- pregnancy status where available
+- weight where available
+- blood pressure where available
+- clinical notes
+
+Do NOT require every field.
+
+Missing fields should be represented as:
+- unavailable
+- not detected
+- not reported
+
+Do not invent missing patient information.
+
+============================================================
+18. OCR AND PATIENT EXTRACTION
+============================================================
+
+The OCR/document processing layer should:
+
+1. Extract text
+2. Detect relevant medical entities
+3. Normalize fields
+4. Assign confidence where possible
+5. Display extracted information
+6. Allow user editing/confirmation before ranking
+
+Patient editor must be available.
+
+Example:
+
+Age: 21
+Sex: Female
+Diagnosis: Allergic Rhinitis
+Symptoms: Frequent sneezing...
+Allergies: Penicillin
+Comorbidities: Mild asthma
+Current medication: Salbutamol inhaler
+
+The user must be able to correct extracted information.
+
+============================================================
+19. PATIENT SAFETY CHECKS
+============================================================
+
+The recommendation engine must consider:
+
+- allergies
+- age
+- sex
+- diagnosis
+- symptoms
+- comorbidities
+- current medications
+- previous medications
+- kidney/liver information if present
+- pregnancy status if present
+- other patient-specific factors
+
+An allergy match should be treated as a major safety concern.
+
+Example:
+If patient allergy = Penicillin,
+do NOT rank Amoxicillin as a normal safe recommendation.
+
+The UI should clearly explain why a candidate was penalized or excluded.
+
+============================================================
+20. DISEASE-AWARE RECOMMENDATION
+============================================================
+
+IMPORTANT:
+
+Do NOT return the same generic ranked drug list for every disease.
+
+Recommendation must be influenced by:
+- diagnosis
+- symptoms
+- clinical indication relevance
+- patient-specific factors
+- safety
+- ADMET
+- evidence
+
+For example:
+A candidate relevant to allergic rhinitis should score differently from a candidate for hypertension or diabetes.
+
+The system should calculate indication/relevance instead of displaying a fixed generic list.
+
+============================================================
+21. CANDIDATE DRUG LIST
+============================================================
+
+Show ranked candidate cards.
+
+Each card should show:
+
+- drug name
+- overall recommendation score
+- safety score
+- toxicity score
+- bioavailability score
+- evidence confidence
+- patient compatibility
+- indication relevance
+- major safety flags
+- short recommendation rationale
+
+NO DROPDOWN ARROW / CHEVRON NEXT TO THE DRUG.
+
+The user should click the drug card/name itself.
+
+Clicking a candidate must open its complete connected detail view.
+
+============================================================
+22. DRUG DETAIL VIEW
+============================================================
+
+When a candidate is selected, show:
+
+1. Drug name
+2. Large molecular structure
+3. Basic drug information
+4. Intended/common use
+5. Patient problem
+6. Why this drug is relevant
+7. Why it was ranked highly
+8. ADMET profile
+9. Toxicity profile
+10. Interaction risk
+11. Patient-specific factors
+12. RAG evidence
+13. Ranking contribution
+14. Explanation of penalties
+15. Limitations
+16. Research/educational disclaimer
+
+============================================================
+23. PATIENT PROBLEM EXPLANATION
+============================================================
+
+The selected drug detail must explain:
+
+“What problem is the patient experiencing?”
+
+Example:
+
+The patient has symptoms consistent with allergic rhinitis, including:
+- sneezing
+- runny nose
+- nasal congestion
+- itchy/watery eyes
+
+Then explain:
+
+“Why might this problem be happening?”
+
+For example, explain the relationship between:
+- diagnosis
+- symptoms
+- known triggers/context
+- relevant patient factors
+
+Use cautious language.
+
+Do NOT claim a definitive diagnosis solely from OCR/AI interpretation.
+
+============================================================
+24. WHY RECOMMENDED
+============================================================
+
+For each top-ranked drug explain:
+
+- indication relevance
+- safety
+- toxicity
+- bioavailability
+- evidence
+- patient compatibility
+- interaction considerations
+
+Example structure:
+
+WHY SAFERX RANKED THIS DRUG HIGHER
+
+Clinical relevance
+████████
+
+Safety
+████████
+
+Bioavailability
+███████
+
+Evidence
+████████
+
+Patient compatibility
+████████
+
+Then explain in plain English.
+
+============================================================
+25. PERSONALIZED RANKING FORMULA
+============================================================
+
+Use transparent weighting.
+
+Established ranking weights:
+
+Clinical relevance / relevance = 0.35
+Bioavailability = 0.25
+Safety = 0.25
+Evidence = 0.15
+
+Patient penalty multiplier = 0.30 where applicable.
+
+Conceptually:
+
+Base Score =
+0.35 × Relevance
++
+0.25 × Bioavailability
++
+0.25 × Safety
++
+0.15 × Evidence
+
+Then apply patient-specific penalties.
+
+Do not hide the formula.
+
+Show users how the score was produced.
+
+============================================================
+26. RANKING FACTORS
+============================================================
+
+The recommendation explanation should expose:
+
+- overall recommendation score
+- ADMET contribution
+- toxicity contribution
+- interaction risk
+- evidence confidence
+- clinical relevance
+- patient-specific factors
+- allergy penalty
+- comorbidity penalty
+- medication interaction penalty
+- any other applied penalty
+
+Show positive and negative contributions separately.
+
+============================================================
+27. EXPLAINABILITY
+============================================================
+
+Create a dedicated Explainability page.
+
+It must explain the recommendation using:
+
+- molecular descriptors
+- ADMET values
+- toxicity
+- patient factors
+- ranking weights
+- evidence
+- penalties
+- final score
+
+Use charts where appropriate.
+
+The explanation must translate ML output into understandable language.
+
+For example:
+
+Technical:
+“Predicted hERG liability = X”
+
+Plain English:
+“The model identifies a higher predicted cardiac electrophysiology risk signal for this molecule.”
+
+Use cautious wording:
+- predicted
+- model-estimated
+- evidence suggests
+- may indicate
+- requires expert validation
+
+Never say:
+- guaranteed safe
+- definitely toxic
+- definitely cures
+- clinically approved by SafeRx
+- confirmed diagnosis
+
+============================================================
+28. SHAP-STYLE EXPLANATION
+============================================================
+
+If using SHAP-style explanation for the ranking:
+
+Make it clear that the explanation is based on the explicit ranking function and feature contributions.
+
+Do NOT falsely claim that a black-box neural network produced SHAP values if it did not.
+
+Explain:
+
+Feature
+Contribution
+Direction
+Meaning
+
+Example:
+
+Clinical relevance → +0.24
+Safety → +0.18
+Evidence → +0.12
+Patient penalty → -0.20
+
+============================================================
+29. RAG SYSTEM
+============================================================
+
+RAG workflow:
+
+USER/DRUG QUERY
+↓
+RETRIEVE
+↓
+DEDUPLICATE
+↓
+RANK
+↓
+VERIFY RELEVANCE
+↓
+RETURN TOP 3 DISTINCT EVIDENCE ITEMS
+
+Sources may include:
+- PubChem
+- PubMed
+- openFDA
+- other legitimate biomedical sources where implemented
+
+Use:
+- BioLinkBERT
+- FAISS
+
+If unavailable:
+use a deterministic/local TF-IDF fallback.
+
+Do NOT allow RAG failure to crash the whole application.
+
+============================================================
+30. RAG EVIDENCE DISPLAY
+============================================================
+
+Show ONLY the strongest distinct evidence items.
+
+Maximum:
+3 genuinely distinct evidence items.
+
+Do NOT fill the list with duplicates or filler text.
+
+Each evidence item must include:
+
+Source
+Drug / molecule
+Relevant endpoint
+Evidence summary
+Why it supports the prediction
+
+Example:
+
+SOURCE:
+PubMed
+
+MOLECULE:
+Cetirizine
+
+ENDPOINT:
+Safety / adverse effect
+
+EVIDENCE SUMMARY:
+...
+
+WHY IT SUPPORTS THE PREDICTION:
+...
+
+The system must deduplicate evidence.
+
+============================================================
+31. EVIDENCE DEDUPLICATION
+============================================================
+
+Implement:
+
+deduplicate_evidence(items, limit=3)
+
+Duplicate evidence should be detected using appropriate normalized keys/text/source/identifier.
+
+Do not show:
+- same article multiple times
+- same source repeated with trivial wording changes
+- filler evidence
+
+============================================================
+32. RAG EVIDENCE QUALITY
+============================================================
+
+Evidence ranking should consider:
+
+- query relevance
+- drug/molecule match
+- endpoint match
+- source quality
+- semantic similarity
+- uniqueness
+
+The frontend should show evidence confidence carefully.
+
+Evidence confidence is not the same as clinical certainty.
+
+============================================================
+33. REPORT CENTER
+============================================================
+
+Report Center must provide EXACTLY THREE report choices:
+
+1. PATIENT REPORT
+2. MOLECULE / ADMET REPORT
+3. DRUG RECOMMENDATION REPORT
+
+Do not remove any of these.
+
+============================================================
+34. PATIENT REPORT PDF
+============================================================
+
+Patient Report should contain:
+
+- patient information
+- extracted report information
+- diagnosis
+- symptoms
+- allergies
+- comorbidities
+- medications
+- extracted labs if available
+- processing/extraction information
+- disclaimer that source data may be synthetic or OCR-derived
+- no invented data
+
+============================================================
+35. MOLECULE / ADMET REPORT PDF
+============================================================
+
+Include:
+
+- drug/molecule name
+- molecular structure
+- SMILES
+- molecular formula if available
+- molecular weight
+- descriptors
+- drug-likeness
+- ADMET results
+- toxicity results
+- endpoint interpretations
+- model prediction disclaimer
+- evidence where appropriate
+
+Use professional formatting.
+
+============================================================
+36. DRUG RECOMMENDATION REPORT PDF
+============================================================
+
+Include:
+
+- patient summary
+- patient-specific factors
+- selected/top-ranked drug
+- large molecular structure
+- purpose/common use
+- recommendation score
+- ranking breakdown
+- ADMET
+- toxicity
+- interaction considerations
+- why recommended
+- patient problem explanation
+- RAG evidence
+- up to 3 distinct evidence items
+- limitations
+- disclaimer
+
+Do NOT call the output a medical prescription.
+
+============================================================
+37. SYNTHETIC DATASET
+============================================================
+
+The project includes:
+
+synthetic_medical_reports_1000 (1).csv
+
+Approximately 1000 synthetic records.
+
+Columns:
+
+patient_id
+age
+sex
+diagnosis
+drug_name
+dosage
+lab_test
+lab_value
+symptom
+report_text
+
+Example drug distribution includes:
+
+Atorvastatin
+116
+
+Amoxicillin
+115
+
+Levothyroxine
+105
+
+Omeprazole
+103
+
+Amlodipine
+99
+
+Lisinopril
+97
+
+Sertraline
+95
+
+Cetirizine
+94
+
+Metformin
+91
+
+Losartan
+85
+
+IMPORTANT:
+
+This dataset is synthetic.
+
+The application must clearly label synthetic patient data as synthetic.
+
+Do not present synthetic records as real patient records.
+
+============================================================
+38. TEST PATIENT REPORT
+============================================================
+
+Support this synthetic test report scenario:
+
+Patient:
+Ananya Sharma
+
+Age:
+21
+
+Gender:
+Female
+
+Date:
+03/09/2026
+
+Weight:
+58 kg
+
+Blood Pressure:
+128/82 mmHg
+
+Chief Complaint:
+Frequent sneezing; runny nose; nasal congestion; itchy/watery eyes; symptoms mainly in the morning.
+
+Diagnosis:
+Allergic Rhinitis
+
+Known Allergy:
+Penicillin
+
+Comorbidity:
+Mild asthma
+
+Current Medication:
+Salbutamol inhaler — as needed
+
+Previous Medication:
+None reported
+
+Clinical Notes:
+Seasonal worsening of symptoms.
+No fever reported.
+No significant gastrointestinal symptoms.
+No history of kidney or liver disease reported.
+
+Investigation:
+No significant abnormality reported in the provided test information.
+
+System Test Candidate:
+Cetirizine — included for SafeRx AI system testing only.
+
+The document explicitly states that it is completely synthetic test data for OCR/document-processing demonstration and is NOT a real medical record, prescription, diagnosis, or treatment recommendation.
+
+============================================================
+39. OCR EXTRACTION EXPECTATION
+============================================================
+
+The OCR parser should correctly identify at minimum:
+
+age = 21
+sex = Female
+diagnosis = Allergic Rhinitis
+symptom = Frequent sneezing; runny nose; nasal congestion; itchy/watery eyes; symptoms mainly in the morning.
+allergies = Penicillin
+comorbidities = Mild asthma
+current_medications = Salbutamol inhaler — as needed
+
+Show:
+fields detected
+confidence if available
+editable values
+
+============================================================
+40. BACKEND API
+============================================================
+
+FastAPI backend should expose clean API endpoints.
+
+Examples:
+
+GET /api/health
+
+POST /api/molecule/analyze
+
+POST /api/patient/extract
+
+POST /api/recommend
+
+POST /api/evidence
+
+POST /api/report/patient
+
+POST /api/report/molecule
+
+POST /api/report/recommendation
+
+Use consistent JSON structures.
+
+All errors must return controlled API responses.
+
+============================================================
+41. HEALTH ENDPOINT
+============================================================
+
+/api/health should report useful state.
+
+Example:
+
+{
+  "status": "ok",
+  "engineReady": true,
+  "engineLoading": false,
+  "error": null
+}
+
+If engine initialization fails:
+
+- do not crash server
+- expose meaningful error
+- frontend should display a useful status message
+
+============================================================
+42. CRITICAL CACHE/CATALOG FIX
+============================================================
+
+Previously the project encountered:
+
+KeyError: ['smiles']
+
+because runtime/drug_catalog.csv existed but did not contain the expected smiles column.
+
+Prevent this permanently.
+
+Implement:
+
+_catalog_is_valid()
+
+Validate:
+- required columns exist
+- drug_name exists
+- smiles exists
+- records are valid
+
+If cache is stale/incomplete:
+- rebuild it
+- repair it
+- use fallback structures
+- do not crash initialization
+
+Never blindly assume cached catalog format.
+
+============================================================
+43. FALLBACK DRUG STRUCTURES
+============================================================
+
+Maintain valid fallback structures for the supported demonstration drugs.
+
+If PubChem/live enrichment fails:
+- use safe local fallback data
+- continue where scientifically valid
+- clearly distinguish fallback data from live retrieved data
+
+============================================================
+44. LIVE ENRICHMENT
+============================================================
+
+Live external biomedical APIs can be unreliable.
+
+Use:
+
+SAFERX_LIVE_ENRICH=0
+
+as the default for fast/reliable local initialization.
+
+Support:
+
+SAFERX_LIVE_ENRICH=1
+
+for optional live enrichment.
+
+Startup should NOT hang because PubChem/PubMed/openFDA is unavailable.
+
+============================================================
+45. DUPLICATE ROUTE BUG PREVENTION
+============================================================
+
+There must be only ONE:
+
+POST /api/molecule/analyze
+
+route.
+
+Do NOT define the same endpoint twice.
+
+Keep structure rendering and molecule analysis logically separated.
+
+============================================================
+46. FRONTEND/BACKEND CONTRACT
+============================================================
+
+Do a complete audit:
+
+Frontend
+↓
+API
+↓
+Input preprocessing
+↓
+Drug resolution
+↓
+SMILES
+↓
+RDKit
+↓
+Descriptors
+↓
+ADMET
+↓
+Risk
+↓
+RAG
+↓
+Evidence ranking
+↓
+Patient ranking
+↓
+Explanation
+↓
+PDF
+
+Every step must have:
+- input schema
+- output schema
+- error handling
+
+No undefined fields.
+
+No mismatched names.
+
+No frontend assumption that a backend field exists when it does not.
+
+============================================================
+47. ERROR HANDLING
+============================================================
+
+Test:
+
+- valid drug
+- unknown drug
+- invalid SMILES
+- empty input
+- missing patient report
+- malformed patient report
+- invalid PDF
+- unsupported file
+- ADMET failure
+- RAG failure
+- PubChem failure
+- invalid API request
+- missing required fields
+
+The server must never crash because a user entered invalid data.
+
+============================================================
+48. PERFORMANCE
+============================================================
+
+Do not unnecessarily call external services during startup.
+
+Use:
+- lazy loading
+- cached drug data
+- controlled initialization
+- fallback retriever
+- safe model loading
+
+The UI must show:
+- loading
+- processing
+- success
+- error
+
+states.
+
+============================================================
+49. EVALUATION PAGE
+============================================================
+
+Create an Evaluation page.
+
+Evaluate recommendation/ranking quality where valid.
+
+Metrics may include:
+- Hit@1
+- Hit@3
+- Hit@5
+- ranking metrics where appropriate
+- retrieval relevance
+- evidence diversity
+- model/runtime status
+
+IMPORTANT:
+
+Evaluation must rank the FULL candidate catalog before calculating Hit@k.
+
+Do NOT truncate the candidate list to top 5 before computing evaluation metrics.
+
+Otherwise the metric can become misleading.
+
+Clearly explain dataset limitations.
+
+============================================================
+50. MODEL HONESTY
+============================================================
+
+The project must clearly distinguish:
+
+PRETRAINED MODELS:
+- ADMET-AI
+- BioLinkBERT if used
+
+PROJECT LOGIC:
+- risk scoring
+- ranking
+- patient penalty
+- evidence ranking
+- interpretation
+
+OPTIONAL BENCHMARK MODELS:
+- Random Forest
+- XGBoost
+- Chemprop
+
+Do NOT claim Random Forest/XGBoost/Chemprop were trained unless actual labeled training data and training code are present.
+
+Do NOT claim the project trained ADMET-AI.
+
+============================================================
+51. MEDICAL SAFETY / HONESTY
+============================================================
+
+Every important page should communicate:
+
+- This is a research/educational prototype.
+- Predictions are computational.
+- ADMET values are not laboratory results.
+- AI outputs are not medical diagnosis.
+- AI ranking is not a prescription.
+- Results require qualified clinical/research validation.
+- Synthetic patient data is not real medical data.
+
+Use careful language.
+
+============================================================
+52. PROFESSIONAL UI DATA REPRESENTATION
+============================================================
+
+Use:
+
+- metric cards
+- progress bars
+- risk badges
+- tables
+- charts
+- evidence cards
+- molecular structure panels
+- ranking contribution charts
+- expandable technical sections
+
+Avoid:
+- excessive empty space
+- tiny molecular structures
+- tiny unreadable text
+- giant unnecessary headings
+- duplicated information
+- generic filler cards
+
+============================================================
+53. RESPONSIVE DESIGN
+============================================================
+
+Must work on:
+
+- desktop
+- laptop
+- tablet
+- mobile
+
+Sidebar should collapse appropriately.
+
+Tables should remain usable.
+
+Molecular structure should scale responsively.
+
+Cards should stack correctly.
+
+============================================================
+54. ACCESSIBILITY
+============================================================
+
+Include:
+
+- readable contrast
+- keyboard-friendly controls
+- meaningful button labels
+- aria labels where needed
+- visible focus states
+- no icon-only ambiguous controls
+
+============================================================
+55. FRONTEND STATE MANAGEMENT
+============================================================
+
+Maintain shared state for:
+
+- selected drug
+- selected molecule
+- patient report
+- extracted patient fields
+- recommendation results
+- selected candidate
+- evidence
+- theme
+- report generation status
+
+Do not make each page isolated from the rest of the application.
+
+For example:
+
+If the user selects a recommended drug,
+the Explainability page should understand which drug is selected.
+
+If the user analyzes a molecule,
+the Report Center should be able to use that analysis.
+
+If a patient report is uploaded,
+the recommendation workflow should use the extracted patient information.
+
+============================================================
+56. CONNECTED DRUG EXPERIENCE
+============================================================
+
+The user should be able to move naturally:
+
+Recommendation
+→ click drug
+→ drug detail
+→ molecule
+→ ADMET
+→ toxicity
+→ evidence
+→ explainability
+→ report
+
+Do not force the user to manually re-enter the drug at every page.
+
+============================================================
+57. BASIC DRUG INFORMATION
+============================================================
+
+For a selected drug display where available:
+
+- name
+- synonyms
+- purpose/common use
+- molecular formula
+- molecular weight
+- canonical SMILES
+- molecular structure
+- drug-likeness
+- descriptors
+
+Do not invent unavailable information.
+
+============================================================
+58. MOLECULAR/LAB RESEARCH INFORMATION
+============================================================
+
+Technical users should be able to inspect:
+
+- SMILES
+- molecular descriptors
+- ADMET endpoints
+- model prediction values
+- toxicity groups
+- risk calculations
+- evidence sources
+- ranking contribution
+
+But the interface should also have plain-English explanations.
+
+The project should support BOTH:
+
+BEGINNER / PLAIN ENGLISH
+
+and
+
+TECHNICAL / RESEARCH DETAIL
+
+============================================================
+59. REPORT DOWNLOAD
+============================================================
+
+PDF generation must:
+
+- actually generate a PDF
+- use selected data
+- preserve correct drug name
+- include correct patient information
+- include correct structure where requested
+- include correct ADMET results
+- include evidence
+- not insert placeholder values
+- handle errors cleanly
+
+============================================================
+60. README
+============================================================
+
+Create a complete README containing:
+
+- project overview
+- architecture
+- features
+- screenshots section placeholder
+- installation
+- backend setup
+- frontend setup
+- environment variables
+- API documentation
+- project workflow
+- ADMET explanation
+- RAG explanation
+- ranking formula
+- evaluation
+- testing
+- limitations
+- synthetic-data disclaimer
+- medical disclaimer
+- GitHub usage
+- future scope
+
+============================================================
+61. INSTALLATION
+============================================================
+
+Backend:
+
+cd backend
+
+python -m venv .venv
+
+Windows:
+
+.\.venv\Scripts\Activate.ps1
+
+pip install -r requirements.txt
+
+Run:
+
+python -m uvicorn api:app --reload --host 127.0.0.1 --port 8000
+
+Frontend:
+
+cd frontend
+
+npm install
+
+npm run dev
+
+Provide a root-level run_all.bat where practical.
+
+============================================================
+62. DOCKER
+============================================================
+
+Provide:
+
+Dockerfile
+docker-compose.yml
+
+Keep Docker configuration consistent with the actual project.
+
+Do not create Docker configuration that references nonexistent files.
+
+============================================================
+63. GITHUB
+============================================================
+
+Create:
+
+.gitignore
+
+Exclude:
+- .venv
+- node_modules
+- runtime caches
+- temporary files
+- generated reports
+- Python cache
+- environment files
+- secrets
+
+Do NOT commit API keys.
+
+============================================================
+64. AUTOMATED TESTING
+============================================================
+
+Create tests for:
+
+CORE:
+- valid drug
+- unknown drug
+- invalid SMILES
+- valid SMILES
+- drug-likeness
+- ADMET normalization
+- risk scoring
+- evidence deduplication
+- ranking
+
+API:
+- health
+- molecule analysis
+- recommendation
+- evidence
+- invalid requests
+- error responses
+
+PATIENT:
+- extraction
+- missing fields
+- allergies
+- comorbidity
+- medications
+
+REPORTS:
+- patient report
+- molecule report
+- recommendation report
+
+EVALUATION:
+- full-catalog ranking
+- Hit@k
+
+============================================================
+65. CURRENT KNOWN BUGS TO AVOID
+============================================================
+
+The final implementation MUST NOT reproduce these known problems:
+
+1. Missing "smiles" column in runtime drug catalog
+2. Duplicate /api/molecule/analyze endpoint
+3. Backend startup failure because live APIs are unavailable
+4. RAG failure crashing the application
+5. Generic drug recommendations independent of disease
+6. Misleading Hit@k evaluation caused by truncating candidates
+7. Duplicate/filler RAG evidence
+8. ADMET values presented as laboratory results
+9. Synthetic data presented as real patient data
+10. Frontend pages disconnected from backend
+11. Report Center missing one of the three report types
+12. Theme toggle that does not actually persist
+13. Tiny molecular structures
+14. Dropdown arrows beside ranking candidates
+15. Fake/placeholder buttons
+16. Missing error handling
+17. Frontend/backend field mismatches
+18. Recommendation detail not explaining why the drug was selected
+
+============================================================
+66. EXACT REPORT CENTER OPTIONS
+============================================================
+
+Report Center must visibly show:
+
+PATIENT REPORT
+
+MOLECULE / ADMET REPORT
+
+DRUG RECOMMENDATION REPORT
+
+Each must generate the correct report.
+
+============================================================
+67. FINAL DRUG RECOMMENDATION UX
+============================================================
+
+Ideal user journey:
+
+1. Open SafeRx AI
+2. Go to Drug Recommendation
+3. Upload patient PDF/image
+4. OCR extracts patient data
+5. User reviews extracted information
+6. User confirms/corrects fields
+7. System identifies disease/symptom context
+8. System generates relevant candidate drugs
+9. Each candidate is analyzed
+10. ADMET predictions are generated
+11. Toxicity is calculated
+12. Patient-specific penalties are calculated
+13. Biomedical evidence is retrieved
+14. Evidence is deduplicated
+15. Top 3 strongest evidence items are selected
+16. Candidate drugs are ranked
+17. User sees transparent scores
+18. User clicks a drug directly
+19. Large molecular structure appears
+20. Basic information appears
+21. Patient problem explanation appears
+22. Why the drug is relevant appears
+23. Why it ranked highly appears
+24. ADMET appears
+25. Toxicity appears
+26. Evidence appears
+27. Explainability appears
+28. PDF recommendation report can be generated
+
+============================================================
+68. DEMO SCENARIO
+============================================================
+
+The primary demonstration should support the synthetic Ananya Sharma report.
+
+Expected extracted context:
+
+21-year-old female
+Allergic Rhinitis
+Frequent sneezing
+Runny nose
+Nasal congestion
+Itchy/watery eyes
+Penicillin allergy
+Mild asthma
+Salbutamol inhaler
+
+The recommendation engine must consider these factors.
+
+For demonstration purposes, Cetirizine is included as the system test candidate.
+
+Do not hard-code Cetirizine as universally recommended.
+The system must still calculate ranking based on disease/patient context.
+
+============================================================
+69. NO GENERIC FIXED RECOMMENDATION
+============================================================
+
+This is critical.
+
+DO NOT implement:
+
+if patient:
+    return ["Cetirizine", "Amoxicillin", "Metformin"]
+
+or any fixed recommendation list.
+
+Recommendations must be dynamically scored.
+
+The ranking must depend on:
+
+DIAGNOSIS
++
+SYMPTOMS
++
+PATIENT FACTORS
++
+MOLECULAR/ADMET PROPERTIES
++
+TOXICITY
++
+EVIDENCE
++
+INTERACTION RISK
+
+============================================================
+70. API RESPONSE CONSISTENCY
+============================================================
+
+Use consistent structures such as:
+
+{
+  "drug_name": "...",
+  "smiles": "...",
+  "structure_svg": "...",
+  "basic_info": {...},
+  "descriptors": {...},
+  "admet": [...],
+  "toxicity": {...},
+  "safety_score": 0.0,
+  "bioavailability_score": 0.0,
+  "recommendation_score": 0.0,
+  "patient_factors": [...],
+  "evidence": [...],
+  "explanation": {...}
+}
+
+Adapt as needed, but frontend and backend must agree exactly.
+
+============================================================
+71. NO SILENT DATA FABRICATION
+============================================================
+
+If information is unavailable:
+
+show:
+“Not available”
+
+or:
+“Not detected”
+
+or:
+“Could not retrieve”
+
+Do NOT generate fake:
+- lab values
+- clinical trial results
+- evidence citations
+- drug properties
+- patient information
+- ADMET values
+
+============================================================
+72. SECURITY
+============================================================
+
+Do not expose:
+- API keys
+- secrets
+- credentials
+
+Validate:
+- uploaded file type
+- file size
+- input strings
+- SMILES
+- API payloads
+
+Avoid arbitrary file execution.
+
+============================================================
+73. FINAL QUALITY AUDIT
+============================================================
+
+Before delivering the project, perform a full audit.
+
+Check:
+
+FRONTEND
+✓ all pages load
+✓ navigation works
+✓ theme works
+✓ drug selection works
+✓ recommendation works
+✓ report upload works
+✓ extracted patient data editable
+✓ candidate clicking works
+✓ no dropdown arrows
+✓ structure large
+✓ charts render
+✓ errors display
+✓ reports work
+
+BACKEND
+✓ server starts
+✓ /api/health works
+✓ catalog validation works
+✓ drug resolution works
+✓ SMILES validation works
+✓ RDKit works
+✓ ADMET works
+✓ risk scoring works
+✓ RAG works
+✓ fallback works
+✓ ranking works
+✓ report generation works
+✓ duplicate routes absent
+
+DATA
+✓ synthetic dataset loads
+✓ missing values handled
+✓ no fake clinical values
+
+TESTING
+✓ valid inputs
+✓ invalid inputs
+✓ unknown drugs
+✓ invalid SMILES
+✓ RAG
+✓ ranking
+✓ API
+✓ reports
+
+============================================================
+74. IMPORTANT PROJECT HONESTY
+============================================================
+
+Never describe this as:
+
+“An AI that prescribes medicine.”
+
+Instead describe it as:
+
+“An AI-assisted research and decision-support prototype for ADMET analysis, evidence retrieval, drug safety assessment, and patient-specific ranking.”
+
+Use:
+
+“computational prediction”
+
+instead of:
+
+“laboratory result”
+
+Use:
+
+“recommendation/ranking”
+
+instead of:
+
+“prescription”
+
+Use:
+
+“patient-reported/extracted information”
+
+instead of:
+
+“confirmed clinical diagnosis”
+
+============================================================
+75. FUTURE SCOPE
+============================================================
+
+Keep future features clearly separated from implemented functionality.
+
+Potential future scope:
+
+- EHR/FHIR integration
+- pharmacogenomics
+- real-world clinical datasets
+- multilingual voice interface
+- advanced handwriting recognition
+- clinician verification workflow
+- larger biomedical knowledge graph
+- prospective clinical validation
+- additional ADMET models
+- additional drug-drug interaction databases
+
+Do NOT pretend these are already implemented.
+
+============================================================
+76. COLLEGE PRESENTATION
+============================================================
+
+The system should support this explanation:
+
+“SafeRx AI is an AI-assisted drug safety and personalized ranking platform. It combines molecular analysis, ADMET prediction, toxicity assessment, biomedical evidence retrieval, and patient-specific factors to produce an explainable ranking of candidate drugs.”
+
+The presentation should be able to explain:
+
+INPUT
+→
+MOLECULE
+→
+ADMET
+→
+SAFETY
+→
+RAG
+→
+PATIENT
+→
+RANKING
+→
+EXPLANATION
+→
+REPORT
+
+============================================================
+77. RESUME DESCRIPTION
+============================================================
+
+The implementation should support a resume description similar to:
+
+“Developed SafeRx AI, an explainable drug safety and personalized ranking platform integrating RDKit molecular analysis, pretrained ADMET prediction, biomedical RAG, toxicity scoring, patient-specific risk factors, transparent weighted ranking, and automated PDF reporting.”
+
+Do not claim training of models that were only used for inference.
+
+============================================================
+78. FINAL ACCEPTANCE CRITERIA
+============================================================
+
+The project is considered COMPLETE only when:
+
+✓ React frontend works
+✓ FastAPI backend works
+✓ frontend communicates with backend
+✓ Drug Recommendation is the main workflow
+✓ patient upload is integrated into recommendation
+✓ OCR/extraction works
+✓ patient editor works
+✓ disease-aware ranking works
+✓ drug candidates are clickable
+✓ no candidate dropdown arrows
+✓ large molecular structure works
+✓ molecule analysis works
+✓ ADMET works
+✓ professional ADMET table works
+✓ toxicity scoring works
+✓ patient safety factors work
+✓ RAG works
+✓ top 3 distinct evidence works
+✓ evidence explanations work
+✓ transparent ranking works
+✓ explainability works
+✓ evaluation works
+✓ three report types work
+✓ PDF reports work
+✓ dark/light theme works and persists
+✓ invalid input does not crash backend
+✓ unknown drug does not crash backend
+✓ stale catalog does not crash backend
+✓ live APIs are optional
+✓ fallback RAG works
+✓ automated tests pass
+✓ README is complete
+✓ GitHub structure is clean
+✓ Docker configuration is valid
+✓ synthetic data is clearly labeled
+✓ medical/research disclaimer is visible
+✓ no fake claims
+✓ no fake laboratory measurements
+✓ no fake clinical recommendations
+
+============================================================
+79. FINAL INSTRUCTION TO THE CODING AI
+============================================================
+
+Build the complete project now.
+
+Do not merely describe the code.
+
+Create the actual files.
+
+Implement frontend and backend.
+
+Connect every component.
+
+Run syntax checks.
+
+Run backend tests.
+
+Validate API contracts.
+
+Check imports.
+
+Check duplicate routes.
+
+Check catalog schema.
+
+Check report generation.
+
+Check frontend/backend field compatibility.
+
+Check all navigation.
+
+Check all three reports.
+
+Check dark/light mode.
+
+Check patient upload.
+
+Check recommendation flow.
+
+Check molecule structure.
+
+Check ADMET.
+
+Check RAG.
+
+Check ranking.
+
+Check explainability.
+
+Fix every error you encounter.
+
+Then package the complete project into:
+
+SafeRx_AI_FINAL_COMPLETE.zip
+
+The ZIP must contain the complete runnable project, not partial code.
+
+Do not include unnecessary generated caches, node_modules, or virtual environments.
+
+Provide exact Windows setup instructions.
+
+FINAL RULE:
+Do not remove any requirement from this prompt.
+Do not silently replace a requested feature with a simpler alternative.
+If a component cannot be fully implemented because an external service/model is unavailable, implement a controlled fallback and clearly label it rather than fabricating results.

@@ -1,0 +1,1 @@
+"""SafeRx AI backend package."""
